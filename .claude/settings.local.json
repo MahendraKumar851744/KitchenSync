@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip --version)",
+      "Bash(npm --version)",
+      "Bash(mkdir -p /d/Business/KitchenSync/backend)",
+      "Bash(python -m venv venv)",
+      "Bash(venv/Scripts/pip install:*)",
+      "Bash(venv/Scripts/django-admin startproject:*)",
+      "Bash(venv/Scripts/python manage.py startapp accounts)",
+      "Bash(venv/Scripts/python manage.py startapp menu)",
+      "Bash(venv/Scripts/python manage.py startapp orders)",
+      "Bash(venv/Scripts/python manage.py startapp analytics)",
+      "Bash(venv/Scripts/python manage.py startapp notifications)",
+      "Bash(venv/Scripts/python:*)",
+      "Bash(npm create:*)",
+      "Bash(npm install:*)",
+      "Bash(npx tailwindcss:*)",
+      "Bash(npm run:*)",
+      "Bash(venv\\\\Scripts\\\\python manage.py show_urls)",
+      "Bash(venvScriptspython -c ':*)",
+      "Bash(tasklist)",
+      "Bash(netstat -ano)",
+      "Bash(wmic process:*)",
+      "Bash(powershell -Command \"Get-Process -Id 26788 | Select-Object -ExpandProperty Path; \\(Get-Item \\(Get-Process -Id 26788\\).MainModule.FileName\\).Directory.FullName\")",
+      "Bash(powershell -Command \"\\(Get-WmiObject Win32_Process -Filter 'ProcessId=26788'\\).CommandLine\")",
+      "Bash(powershell -Command \"Get-ChildItem -Path 'C:\\\\Users\\\\S MAHINDHAR KUMAR' -Recurse -Filter 'manage.py' -ErrorAction SilentlyContinue | Select-Object FullName\")",
+      "Bash(powershell:*)",
+      "Bash(curl -s http://127.0.0.1:8000/api/vendor/login/ -X POST -H \"Content-Type: application/json\" -d '{\"mobile_number\":\"test\",\"password\":\"test\"}')",
+      "Bash(taskkill /PID 26788 /F)",
+      "Bash(curl:*)"
+    ]
+  }
+}

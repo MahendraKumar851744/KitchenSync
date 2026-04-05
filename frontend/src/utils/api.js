@@ -1,0 +1,27 @@
+import axios from 'axios';
+import { getVendorToken, clearVendorToken } from './localStorage';
+
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8000/api',
+});
+
+api.interceptors.request.use((config) => {
+  const token = getVendorToken();
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+api.interceptors.response.use(
+  (res) => res,
+  (err) => {
+    if (err.response?.status === 401) {
+      clearVendorToken();
+      window.location.href = '/vendor/login';
+    }
+    return Promise.reject(err);
+  }
+);
+
+export default api;
