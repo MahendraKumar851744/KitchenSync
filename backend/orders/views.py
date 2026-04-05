@@ -24,12 +24,33 @@ class CustomerMenuView(APIView):
             return Response({'detail': 'Vendor not found.'}, status=status.HTTP_404_NOT_FOUND)
 
         from accounts.serializers import VendorPublicSerializer
+        from menu.models import Category
         from menu.serializers import MenuItemSerializer
 
-        menu_items = vendor.menu_items.filter(is_available=True)
+        menu_items = vendor.menu_items.filter(is_available=True).select_related('category')
+
+        # Group by category
+        categories = []
+        cat_map = {}
+        uncategorized = []
+
+        for item in menu_items:
+            item_data = MenuItemSerializer(item).data
+            if item.category:
+                cid = str(item.category.id)
+                if cid not in cat_map:
+                    cat_map[cid] = {'id': cid, 'name': item.category.name, 'sort_order': item.category.sort_order, 'items': []}
+                cat_map[cid]['items'].append(item_data)
+            else:
+                uncategorized.append(item_data)
+
+        categories = sorted(cat_map.values(), key=lambda c: (c['sort_order'], c['name']))
+        if uncategorized:
+            categories.append({'id': None, 'name': 'Other', 'sort_order': 9999, 'items': uncategorized})
+
         return Response({
             'vendor': VendorPublicSerializer(vendor).data,
-            'menu': MenuItemSerializer(menu_items, many=True).data,
+            'categories': categories,
         })
 
 

@@ -14,12 +14,14 @@ class OrderItemSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True, read_only=True)
     simple_order_id_display = serializers.SerializerMethodField()
+    vendor_qr_id = serializers.CharField(source='vendor.unique_qr_id', read_only=True)
+    vendor_name = serializers.CharField(source='vendor.kitchen_name', read_only=True)
 
     class Meta:
         model = Order
         fields = [
-            'id', 'vendor', 'customer_local_id', 'simple_order_id',
-            'simple_order_id_display', 'total_amount', 'payment_id',
+            'id', 'vendor', 'vendor_qr_id', 'vendor_name', 'customer_local_id',
+            'simple_order_id', 'simple_order_id_display', 'total_amount',
             'payment_status', 'order_status', 'items', 'created_at', 'updated_at'
         ]
         read_only_fields = ['id', 'simple_order_id', 'created_at', 'updated_at']

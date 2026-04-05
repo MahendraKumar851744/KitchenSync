@@ -16,11 +16,39 @@ export default {
           800: '#9a3412',
           900: '#7c2d12',
         },
+        gray: {
+          950: '#0c0c0e',
+        },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
+      borderColor: {
+        DEFAULT: '#f3f4f6',
+      },
+      boxShadow: {
+        'brand': '0 4px 24px -4px rgba(249, 115, 22, 0.35)',
+      },
+      borderOpacity: {
+        8: '0.08',
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        '.scrollbar-hide': {
+          '-ms-overflow-style': 'none',
+          'scrollbar-width': 'none',
+          '&::-webkit-scrollbar': { display: 'none' },
+        },
+        '.border-white\\/8': {
+          'border-color': 'rgba(255,255,255,0.08)',
+        },
+        '.white\\/8': {
+          'background-color': 'rgba(255,255,255,0.08)',
+        },
+      });
+    },
+  ],
 }
